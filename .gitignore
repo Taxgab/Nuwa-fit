@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+!.env.example
+.DS_Store
+
+# Material original del cliente (capturas sin optimizar): no se versiona.
+# El sitio usa los archivos procesados de public/images/.
+assets/source/
