@@ -1,0 +1,320 @@
+@import "tailwindcss";
+
+/* -------------------------------------------------------------------------- */
+/* Design tokens                                                              */
+/* -------------------------------------------------------------------------- */
+
+@theme {
+  --color-carbon: #0b0c0a;
+  --color-surface: #111310;
+  --color-raised: #171a14;
+  --color-line: #272c22;
+  /* Paleta de marca NUWA: azul #116FB5 sobre negro, tal como el logotipo. */
+  --color-brand: #116fb5;
+  --color-brand-deep: #0d5a94;
+  --color-brand-tint: #6db4f0;
+  --color-brand-soft: #a3d4f9;
+  --color-ink: #f4f5ef;
+  --color-muted: #a9af9d;
+  --color-faint: #7f8674;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Anton", "Arial Narrow", Impact, sans-serif;
+
+  --radius-card: 20px;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Base                                                                       */
+/* -------------------------------------------------------------------------- */
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-carbon);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand-tint);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: var(--color-brand);
+    color: #ffffff;
+  }
+
+  /* Sticky header offset for in-page anchors. */
+  section[id] {
+    scroll-margin-top: 5.5rem;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Components                                                                 */
+/* -------------------------------------------------------------------------- */
+
+@layer components {
+  .wrap {
+    width: min(1200px, calc(100% - 2.5rem));
+    margin-inline: auto;
+  }
+
+  @media (max-width: 640px) {
+    .wrap {
+      width: calc(100% - 1.75rem);
+    }
+  }
+
+  /* Display type: condensed, uppercase, athletic.
+     Leading is 1.16 instead of the usual 0.9 because Anton's accented
+     capitals (Á, É, Ó) reach 1.11em: tighter leading makes the accent of one
+     line collide with the caps of the line above. */
+  .display {
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: 1.16;
+    letter-spacing: -0.015em;
+    text-transform: uppercase;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-brand-tint);
+  }
+
+  /* Buttons ------------------------------------------------------------- */
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 3.25rem;
+    padding-inline: 1.5rem;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    transition:
+      transform 0.18s ease,
+      background-color 0.18s ease,
+      border-color 0.18s ease,
+      color 0.18s ease;
+  }
+
+  .btn:active {
+    transform: translateY(1px);
+  }
+
+  .btn-brand {
+    background: var(--color-brand);
+    color: #ffffff;
+  }
+
+  .btn-brand:hover {
+    background: var(--color-brand-deep);
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    border: 1px solid #3b4133;
+    color: var(--color-ink);
+  }
+
+  .btn-outline:hover {
+    border-color: var(--color-brand-tint);
+    color: var(--color-brand-tint);
+  }
+
+  .btn-dark {
+    background: var(--color-carbon);
+    color: var(--color-brand-tint);
+  }
+
+  .btn-dark:hover {
+    background: #171a14;
+    transform: translateY(-2px);
+  }
+
+  .btn-ghost-dark {
+    border: 1px solid color-mix(in srgb, var(--color-carbon) 45%, transparent);
+    color: var(--color-carbon);
+  }
+
+  .btn-ghost-dark:hover {
+    background: color-mix(in srgb, var(--color-carbon) 8%, transparent);
+  }
+
+  .btn-sm {
+    min-height: 2.75rem;
+    padding-inline: 1.15rem;
+    font-size: 0.85rem;
+  }
+
+  /* Surfaces ------------------------------------------------------------ */
+
+  .card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+  }
+
+  .grid-backdrop {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  .visual-frame {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--color-line);
+    border-radius: 24px;
+    background:
+      radial-gradient(115% 85% at 70% 0%, rgba(17, 111, 181, 0.28), transparent 55%),
+      linear-gradient(160deg, #1a1e16, #0d0f0b 72%);
+  }
+
+  /* Ticker -------------------------------------------------------------- */
+
+  .ticker {
+    overflow: hidden;
+    border-block: 1px solid var(--color-line);
+    background: #0e100c;
+  }
+
+  .ticker__track {
+    display: flex;
+    width: max-content;
+    animation: ticker-scroll 34s linear infinite;
+  }
+
+  .ticker:hover .ticker__track {
+    animation-play-state: paused;
+  }
+
+  .ticker__group {
+    display: flex;
+    align-items: center;
+    gap: 2.25rem;
+    padding-inline: 1.125rem;
+  }
+
+  /* Skip link ----------------------------------------------------------- */
+
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -4rem;
+    z-index: 100;
+    border-radius: 999px;
+    background: var(--color-brand);
+    padding: 0.7rem 1.15rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #ffffff;
+    transition: top 0.15s ease;
+  }
+
+  .skip-link:focus {
+    top: 1rem;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Motion                                                                     */
+/* -------------------------------------------------------------------------- */
+
+@keyframes ticker-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rise {
+  animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .ticker__track {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .rise {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

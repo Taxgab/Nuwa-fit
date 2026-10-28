@@ -1,0 +1,85 @@
+---
+import { site } from "../data/site";
+
+const image = site.images.hero;
+---
+
+<figure class="relative mx-auto w-full max-w-[440px] lg:mr-0 lg:ml-auto">
+  <div class="visual-frame aspect-[2/3]">
+    {
+      image ? (
+        <img
+          src={image}
+          alt={site.images.heroAlt}
+          width="800"
+          height="1000"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+          class="h-full w-full object-cover"
+        />
+      ) : (
+        <div
+          class="absolute inset-0"
+          role="img"
+          aria-label="Composición gráfica abstracta de NUWA Fit en verde lima y negro"
+        >
+          <svg viewBox="0 0 400 500" class="h-full w-full" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs>
+              <linearGradient id="nuwa-ring" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#6db4f0" stop-opacity="0.95"></stop>
+                <stop offset="1" stop-color="#6db4f0" stop-opacity="0.4"></stop>
+              </linearGradient>
+            </defs>
+
+            <g stroke="#2c3227" stroke-width="1">
+              <path d="M0 125h400M0 250h400M0 375h400"></path>
+              <path d="M100 0v500M200 0v500M300 0v500"></path>
+            </g>
+
+            <circle
+              cx="200"
+              cy="252"
+              r="126"
+              fill="none"
+              stroke="url(#nuwa-ring)"
+              stroke-width="26"
+              stroke-linecap="round"
+              stroke-dasharray="610 182"
+              transform="rotate(-42 200 252)"
+            >
+            </circle>
+
+            <circle cx="200" cy="252" r="58" fill="none" stroke="#6db4f0" stroke-opacity="0.3" stroke-width="1.5">
+            </circle>
+
+            <circle cx="292" cy="126" r="24" fill="#6db4f0"></circle>
+
+            <path d="M126 404h148" stroke="#6db4f0" stroke-opacity="0.6" stroke-width="8" stroke-linecap="round">
+            </path>
+          </svg>
+        </div>
+      )
+    }
+
+    <span
+      class="absolute top-5 left-5 rounded-full border border-white/15 bg-carbon/50 px-3 py-1.5 text-[0.6rem] font-bold tracking-[0.2em] text-ink/80 uppercase backdrop-blur-sm"
+    >
+      Nuwa · Training
+    </span>
+
+    <span
+      class="absolute bottom-5 left-5 text-[0.6rem] font-bold tracking-[0.2em] text-ink/70 uppercase"
+    >
+      Disciplina · Energía · Evolución
+    </span>
+  </div>
+
+  {
+    !image && (
+      <figcaption class="mt-3 text-[0.65rem] tracking-[0.14em] text-faint uppercase">
+        Espacio reservado para una fotografía real del espacio
+      </figcaption>
+    )
+  }
+</figure>

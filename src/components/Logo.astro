@@ -1,0 +1,20 @@
+---
+interface Props {
+  /** Accessible name for the link, e.g. "NUWA Fit, ir al inicio". */
+  label?: string;
+  class?: string;
+}
+
+const { label = "NUWA Fit, ir al inicio", class: className = "" } = Astro.props;
+---
+
+<a href="#inicio" class:list={["inline-flex shrink-0 items-center", className]} aria-label={label}>
+  <img
+    src="/images/logo-nuwa.png"
+    alt=""
+    width="157"
+    height="55"
+    class="h-9 w-auto md:h-10"
+    decoding="async"
+  />
+</a>

@@ -1,0 +1,50 @@
+---
+import Icon from "./Icon.astro";
+import { disclaimer, pillars } from "../data/site";
+---
+
+<section id="propuesta" class="border-y border-line bg-surface">
+  <div class="wrap grid gap-12 py-20 md:py-28 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-20">
+    <div class="lg:sticky lg:top-28 lg:self-start">
+      <p class="eyebrow">La propuesta</p>
+      <h2 class="display mt-4 text-[clamp(2.3rem,5.6vw,4.2rem)]">
+        Tu progreso.<br />
+        Tu comunidad.<br />
+        <span class="text-brand-tint">Tu momento.</span>
+      </h2>
+
+      <p class="mt-8 max-w-md text-lg leading-8 text-ink/90">
+        No se trata de hacerlo perfecto. Se trata de volver, aprender y dar un paso más cada día.
+      </p>
+      <p class="mt-4 max-w-md text-sm leading-7 text-muted">
+        En NUWA queremos que el entrenamiento sea parte de una vida más activa: un espacio para moverte, enfocarte y
+        compartir objetivos con otras personas.
+      </p>
+    </div>
+
+    <div>
+      <ul class="divide-y divide-line border-y border-line">
+        {
+          pillars.map((pillar, index) => (
+            <li class="flex gap-5 py-7 first:pt-8 last:pb-8">
+              <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-line bg-raised text-brand-tint">
+                <Icon name={pillar.icon} class="h-5 w-5" />
+              </span>
+              <div>
+                <div class="flex items-baseline gap-3">
+                  <span class="font-display text-[0.7rem] tracking-[0.12em] text-faint">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <h3 class="text-base font-semibold md:text-lg">{pillar.title}</h3>
+                </div>
+                <p class="mt-2 text-sm leading-7 text-muted">{pillar.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+
+      <p class="mt-6 text-xs leading-6 text-faint">{disclaimer}</p>
+    </div>
+  </div>
+</section>
