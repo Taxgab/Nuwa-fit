@@ -1,0 +1,95 @@
+---
+import Logo from "./Logo.astro";
+import Icon from "./Icon.astro";
+import { contact, site, whatsappLink } from "../data/site";
+
+const whatsappHref = whatsappLink();
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-line bg-[#080a07]">
+  <div class="wrap py-14">
+    <div class="grid gap-10 md:grid-cols-[1.5fr_1fr_1fr]">
+      <div>
+        <Logo label="NUWA Fit, volver al inicio de la página" />
+        <p class="mt-5 max-w-xs text-sm leading-7 text-muted">
+          {site.tagline}. Entrenamiento, constancia y comunidad en un mismo espacio.
+        </p>
+
+        {
+          contact.hasInstagram && (
+            <a
+              class="mt-5 inline-flex items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-brand-tint"
+              href={contact.instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Icon name="instagram" class="h-4 w-4" />
+              {contact.instagramHandle}
+              <span class="sr-only">(se abre Instagram en una nueva pestaña)</span>
+            </a>
+          )
+        }
+      </div>
+
+      <nav aria-label="Navegación del pie de página">
+        <h2 class="text-[0.6rem] font-bold tracking-[0.18em] text-faint uppercase">Navegación</h2>
+        <ul class="mt-4 space-y-2.5">
+          {
+            site.nav.map((link) => (
+              <li>
+                <a class="text-sm text-muted transition-colors hover:text-brand-tint" href={link.href}>
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+          <li>
+            <a class="text-sm text-muted transition-colors hover:text-brand-tint" href="#inicio">Inicio</a>
+          </li>
+        </ul>
+      </nav>
+
+      <div>
+        <h2 class="text-[0.6rem] font-bold tracking-[0.18em] text-faint uppercase">Contacto</h2>
+        <ul class="mt-4 space-y-2.5 text-sm text-muted">
+          {
+            whatsappHref ? (
+              <li>
+                <a
+                  class="transition-colors hover:text-brand-tint"
+                  href={whatsappHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  WhatsApp
+                  <span class="sr-only">(se abre en una nueva pestaña)</span>
+                </a>
+              </li>
+            ) : (
+              <li>WhatsApp: a confirmar</li>
+            )
+          }
+          {contact.hasAddress ? <li>{contact.address}</li> : <li>Dirección: a confirmar</li>}
+          {
+            contact.hasMaps && (
+              <li>
+                <a class="transition-colors hover:text-brand-tint" href={contact.mapsUrl} target="_blank" rel="noopener noreferrer">
+                  Cómo llegar
+                  <span class="sr-only">(se abre en una nueva pestaña)</span>
+                </a>
+              </li>
+            )
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div
+      class="mt-12 flex flex-col gap-3 border-t border-line pt-6 text-xs text-faint sm:flex-row sm:items-center sm:justify-between"
+    >
+      <p>© {year} {site.name}. Todos los derechos reservados.</p>
+      <p>Diseño preliminar · Identidad visual pendiente de aprobación</p>
+    </div>
+  </div>
+</footer>

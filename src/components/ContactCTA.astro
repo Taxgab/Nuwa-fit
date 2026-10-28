@@ -1,0 +1,65 @@
+---
+import Icon from "./Icon.astro";
+import { contact, steps, whatsappLink } from "../data/site";
+
+const primaryHref = whatsappLink() ?? contact.fallbackHref;
+const isExternal = primaryHref.startsWith("http");
+const primaryLabel = contact.hasWhatsApp ? "Escribir por WhatsApp" : "Ver formas de contacto";
+---
+
+<section class="py-16 md:py-24">
+  <div class="wrap">
+    <div class="relative overflow-hidden rounded-[28px] bg-white px-6 py-12 text-carbon md:px-12 md:py-14">
+      <div
+        class="pointer-events-none absolute -top-28 -right-24 h-72 w-72 rounded-full border-[26px] border-carbon/10"
+        aria-hidden="true"
+      >
+      </div>
+      <div
+        class="pointer-events-none absolute -bottom-32 -left-20 h-64 w-64 rounded-full border-[26px] border-carbon/10"
+        aria-hidden="true"
+      >
+      </div>
+
+      <div class="relative grid gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+        <div>
+          <p class="text-[0.68rem] font-bold tracking-[0.22em] text-carbon/70 uppercase">El primer paso</p>
+          <h2 class="display mt-4 text-[clamp(2.3rem,6vw,4.6rem)]">
+            No esperes al lunes.<br />
+            Empezá por vos.
+          </h2>
+          <p class="mt-5 max-w-xl text-sm leading-7 text-carbon/80 md:text-base">
+            Contanos qué te interesa entrenar y te respondemos con las actividades y horarios disponibles.
+          </p>
+        </div>
+
+        <div class="flex flex-col gap-3 sm:flex-row lg:flex-col lg:items-stretch">
+          <a
+            class="btn btn-dark w-full sm:w-auto lg:w-full"
+            href={primaryHref}
+            target={isExternal ? "_blank" : undefined}
+            rel={isExternal ? "noopener noreferrer" : undefined}
+          >
+            {primaryLabel}
+            <Icon name={contact.hasWhatsApp ? "whatsapp" : "arrow"} class="h-4 w-4" />
+          </a>
+          <a class="btn btn-ghost-dark w-full sm:w-auto lg:w-full" href="#actividades">Ver actividades</a>
+        </div>
+      </div>
+
+      <ol class="relative mt-12 grid gap-6 border-t border-carbon/15 pt-8 sm:grid-cols-3 sm:gap-8">
+        {
+          steps.map((step, index) => (
+            <li>
+              <span class="font-display text-xs tracking-[0.14em] text-carbon/70">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <h3 class="mt-2 text-base font-bold">{step.title}</h3>
+              <p class="mt-1.5 text-xs leading-6 text-carbon/75">{step.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+</section>

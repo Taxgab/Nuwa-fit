@@ -1,0 +1,61 @@
+---
+import Icon from "./Icon.astro";
+import { whatsappLink, type Activity } from "../data/site";
+
+interface Props {
+  activity: Activity;
+  index: number;
+}
+
+const { activity, index } = Astro.props;
+
+const isPending = activity.status === "pending";
+const href = whatsappLink(`Hola NUWA Fit, quiero consultar por ${activity.title}.`) ?? "#contacto";
+const isExternal = href.startsWith("http");
+const number = String(index + 1).padStart(2, "0");
+---
+
+<article
+  class="card group relative flex h-full flex-col overflow-hidden p-6 transition duration-300 hover:-translate-y-1 hover:border-brand-tint/40 md:p-7"
+>
+  <span
+    class="absolute inset-x-0 top-0 h-px scale-x-0 bg-brand-tint transition-transform duration-300 group-hover:scale-x-100"
+    aria-hidden="true"
+  ></span>
+
+  <div class="flex items-start justify-between gap-4">
+    <span class="font-display text-sm tracking-[0.1em] text-brand-tint">{number}</span>
+    {
+      isPending && (
+        <span class="rounded-full border border-line px-2.5 py-1 text-[0.58rem] font-semibold tracking-[0.16em] text-faint uppercase">
+          A confirmar
+        </span>
+      )
+    }
+  </div>
+
+  <h3 class="display mt-12 text-3xl md:mt-16 md:text-4xl">{activity.title}</h3>
+
+  <p class="mt-4 flex-1 text-sm leading-7 text-muted">{activity.summary}</p>
+
+  <ul class="mt-6 flex flex-wrap gap-2">
+    {
+      activity.focus.map((item) => (
+        <li class="rounded-full border border-line px-2.5 py-1 text-[0.6rem] font-medium tracking-[0.1em] text-muted uppercase">
+          {item}
+        </li>
+      ))
+    }
+  </ul>
+
+  <a
+    class="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-brand-tint transition-colors hover:text-brand-soft"
+    href={href}
+    target={isExternal ? "_blank" : undefined}
+    rel={isExternal ? "noopener noreferrer" : undefined}
+  >
+    Consultar {activity.title.toLowerCase()}
+    {isExternal && <span class="sr-only">(se abre WhatsApp en una nueva pestaña)</span>}
+    <Icon name="arrow" class="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+  </a>
+</article>

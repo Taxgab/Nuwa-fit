@@ -1,0 +1,79 @@
+---
+import HeroVisual from "./HeroVisual.astro";
+import Icon from "./Icon.astro";
+import { contact, site, whatsappLink } from "../data/site";
+
+const primaryHref = whatsappLink() ?? contact.fallbackHref;
+const isExternal = primaryHref.startsWith("http");
+const primaryLabel = contact.hasWhatsApp ? "Quiero entrenar" : "Quiero consultar";
+
+const tickerWords = ["Fuerza", "Movimiento", "Constancia", "Comunidad", "Progreso", "Técnica"];
+---
+
+<section id="inicio" class="relative overflow-hidden">
+  <div
+    class="grid-backdrop pointer-events-none absolute inset-0 opacity-60 [mask-image:linear-gradient(to_bottom,black,transparent_88%)]"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div
+    class="wrap relative grid gap-12 pt-14 pb-16 md:pt-20 md:pb-20 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-center lg:gap-16 lg:pt-24"
+  >
+    <div>
+      <p class="eyebrow rise">
+        <span class="inline-block h-1.5 w-1.5 rounded-full bg-brand-tint"></span>
+        Entrenamiento con propósito
+      </p>
+
+      <h1 class="display rise mt-6 text-[clamp(3.1rem,9vw,6.8rem)]" style="animation-delay: 60ms">
+        Más fuerte.<br />
+        <span class="text-brand-tint">Más vos.</span>
+      </h1>
+
+      <p class="rise mt-7 max-w-lg text-base leading-8 text-muted md:text-lg" style="animation-delay: 120ms">
+        Encontrá tu ritmo, construí hábitos que te acompañen afuera del gimnasio y entrená con un plan que puedas
+        sostener. El progreso empieza con una decisión.
+      </p>
+
+      <div class="rise mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap" style="animation-delay: 180ms">
+        <a
+          class="btn btn-brand w-full sm:w-auto"
+          href={primaryHref}
+          target={isExternal ? "_blank" : undefined}
+          rel={isExternal ? "noopener noreferrer" : undefined}
+        >
+          {primaryLabel}
+          <Icon name={contact.hasWhatsApp ? "whatsapp" : "arrow"} class="h-4 w-4" />
+        </a>
+        <a class="btn btn-outline w-full sm:w-auto" href="#actividades">Conocé las actividades</a>
+      </div>
+
+      <p class="rise mt-6 flex items-center gap-2 text-xs text-faint" style="animation-delay: 240ms">
+        <Icon name="check" class="h-4 w-4 text-brand-tint" />
+        {site.heroSupport}
+      </p>
+    </div>
+
+    <div class="rise" style="animation-delay: 140ms">
+      <HeroVisual />
+    </div>
+  </div>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker__track py-4">
+      {
+        [0, 1].map(() => (
+          <div class="ticker__group">
+            {tickerWords.map((word) => (
+              <span class="flex items-center gap-2.5 text-[0.65rem] font-bold tracking-[0.24em] text-muted uppercase whitespace-nowrap">
+                <Icon name="spark" class="h-3 w-3 text-brand-tint" />
+                {word}
+              </span>
+            ))}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

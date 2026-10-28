@@ -1,0 +1,45 @@
+---
+import ActivityCard from "./ActivityCard.astro";
+import Icon from "./Icon.astro";
+import { activities, hasPendingActivities } from "../data/site";
+---
+
+<section id="actividades" class="py-20 md:py-28">
+  <div class="wrap">
+    <div class="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+      <div>
+        <p class="eyebrow">Actividades</p>
+        <h2 class="display mt-4 text-[clamp(2.3rem,5.6vw,4.4rem)]">
+          Entrená a tu manera.<br />
+          <span class="text-brand-tint">Evolucioná siempre.</span>
+        </h2>
+      </div>
+      <p class="max-w-sm text-sm leading-7 text-muted">
+        Cada cuerpo tiene su historia. Elegí el tipo de entrenamiento que te motive y construí tu propio camino, con
+        acompañamiento para ajustar el plan a tu punto de partida.
+      </p>
+    </div>
+
+    <ul class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        activities.map((activity, index) => (
+          <li class="h-full">
+            <ActivityCard activity={activity} index={index} />
+          </li>
+        ))
+      }
+    </ul>
+
+    {
+      hasPendingActivities && (
+        <p class="mt-6 flex items-start gap-2.5 text-xs leading-6 text-faint">
+          <Icon name="clock" class="mt-0.5 h-3.5 w-3.5 shrink-0 text-faint" />
+          <span>
+            Estas propuestas de actividad están pendientes de confirmación por parte del gimnasio. Consultá disponibilidad
+            y horarios actuales antes de inscribirte.
+          </span>
+        </p>
+      )
+    }
+  </div>
+</section>

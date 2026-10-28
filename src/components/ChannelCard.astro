@@ -1,0 +1,47 @@
+---
+import Icon from "./Icon.astro";
+import type { IconName } from "../data/site";
+
+interface Props {
+  icon: IconName;
+  label: string;
+  value: string;
+  /** When `null`, the card renders as a non-interactive placeholder. */
+  href?: string | null;
+  pending?: boolean;
+}
+
+const { icon, label, value, href = null, pending = false } = Astro.props;
+
+const isExternal = href?.startsWith("http") ?? false;
+const Tag = href ? "a" : "div";
+---
+
+<Tag
+  class:list={[
+    "card group relative flex flex-col justify-between gap-6 p-5 transition",
+    href && "hover:-translate-y-0.5 hover:border-brand-tint/40",
+    pending && "border-dashed",
+  ]}
+  href={href ?? undefined}
+  target={isExternal ? "_blank" : undefined}
+  rel={isExternal ? "noopener noreferrer" : undefined}
+>
+  <div class="flex items-center justify-between gap-3">
+    <span class="grid h-9 w-9 place-items-center rounded-lg border border-line bg-raised text-brand-tint">
+      <Icon name={icon} class="h-4 w-4" />
+    </span>
+    {
+      pending ? (
+        <span class="text-[0.55rem] font-semibold tracking-[0.16em] text-faint uppercase">A confirmar</span>
+      ) : (
+        <Icon name="arrow" class="h-4 w-4 text-faint transition-colors group-hover:text-brand-tint" />
+      )
+    }
+  </div>
+
+  <div>
+    <p class="text-[0.6rem] font-bold tracking-[0.18em] text-faint uppercase">{label}</p>
+    <p class="mt-1.5 text-sm leading-6 font-medium break-words text-ink">{value}</p>
+  </div>
+</Tag>
